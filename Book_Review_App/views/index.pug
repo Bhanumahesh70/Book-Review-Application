@@ -1,5 +1,40 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Book Reviews App
+
+  // User navigation
+  ul.navigation
+    if user
+      li Welcome #{user.username}
+      li
+        a(href='/books/add') Add New Book
+      li
+        a(href='/users/logout') Logout
+    else
+      li
+        a(href='/users/login') Login
+      li
+        a(href='/users/register') Register
+
+  // List of books
+  ul.books
+    each book in books
+      li.book-item
+        h2= book.title
+        p Author: #{book.author}
+        p Genre: #{book.genre}
+        p Rating: #{book.rating}
+        p Review: #{book.reviewText}
+        // Edit and delete options
+        if user
+          a(href=`/books/edit/${book._id}`) Edit
+          a(href=`/books/delete/${book._id}`) Delete
+
+  // No books message
+  if books.length === 0
+    p No books to display.
+
+  // Add book link (visible to logged-in users)
+  if user
+    a(href='/books/add') Add a New Book
