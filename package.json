@@ -1,0 +1,11 @@
+{
+  "name": "book_review_app",
+  "version": "1.0.0",
+  "description": "An application to read, view and create the book reviews",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bhanumahesh Pasham",
+  "license": "ISC"
+}
