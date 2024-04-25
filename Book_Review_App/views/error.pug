@@ -1,6 +1,15 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  h1 Error
+
+  // Displaying the error message
+  h2 Status: #{error.status || "Unknown"}
+  p Message: #{error.message || "An unknown error occurred."}
+
+  // Additional error details, useful for debugging (not for production use)
+  //- Uncomment the line below for development environment only
+  //pre #{error.stack}
+
+  // Link to go back home or to a help page
+  a(href='/') Go back to home
