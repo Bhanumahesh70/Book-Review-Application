@@ -1,6 +1,5 @@
-const User = require('../models/user');
+const userService = require('../services/userService');
 const passport = require('passport');
-const bcrypt = require('bcryptjs');
 
 // Display registration form
 exports.user_create_get = (req, res) => {
@@ -8,23 +7,14 @@ exports.user_create_get = (req, res) => {
 };
 
 // Handle User create on POST
-exports.user_create_post = (req, res) => {
-    const { username, password } = req.body;
-    bcrypt.hash(password, 10, (err, hashedPassword) => {
-        if (err) {
-            return res.render('register', { message: 'Password encryption failed' });
-        }
-        const user = new User({
-            username: username,
-            password: hashedPassword
-        });
-        user.save(err => {
-            if (err) {
-                return res.render('register', { message: 'User could not be created' });
-            }
-            res.redirect('/users/login');
-        });
-    });
+exports.user_create_post = async (req, res) => {
+    try {
+        await userService.createUser(req.body);
+        res.redirect('/users/login');
+    } catch (err) {
+        // Handle error e.g., user already exists or database errors
+        res.render('register', { message: 'User could not be created: ' + err.message });
+    }
 };
 
 // Display login form
@@ -37,7 +27,7 @@ exports.user_login_post = (req, res, next) => {
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/users/login',
-        failureFlash: true
+        failureFlash: true // Ensure you have flash middleware configured if you use this option
     })(req, res, next);
 };
 
