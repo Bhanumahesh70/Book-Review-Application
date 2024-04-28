@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const isAuthenticated = require('../middlewares/isAuthenticated');
 const passport = require('passport');
 
 // GET request for registering a new user
@@ -20,6 +21,10 @@ router.post('/login',
         failureFlash: true // Optional: Use flash messages to report login errors
     })
 );
+
+router.get('/profile', isAuthenticated, (req, res) => {
+  res.render('profile', { user: req.user });
+});
 
 // GET request for logging out
 router.get('/logout', userController.user_logout_get);

@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
 require('./config/passport')(passport); // pass passport for configuration
+const errorHandler = require('./middlewares/errorHandler');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const booksRouter = require('./routes/books');
@@ -33,6 +34,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+/*
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -42,6 +44,14 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+*/
+app.use(errorHandler);
+
+// Server listening
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 module.exports = app;
