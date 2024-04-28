@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1 Register
+
+  if error
+    p.error #{error}
+
+  form(action='/users/register', method='POST')
+    .form-group
+      label(for='username') Username:
+      input#username(type='text', name='username', required='required', placeholder='Enter your username')
+
+    .form-group
+      label(for='password') Password:
+      input#password(type='password', name='password', required='required', placeholder='Enter your password')
+
+    .form-group
+      label(for='confirmPassword') Confirm Password:
+      input#confirmPassword(type='password', name='confirmPassword', required='required', placeholder='Confirm your password')
+
+    button(type='submit') Register
