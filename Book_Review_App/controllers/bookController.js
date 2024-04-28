@@ -1,19 +1,17 @@
-const Book = require('../models/book');
+const bookService = require('../services/bookService');
 
-// Display list of all books
 exports.book_list = async (req, res) => {
     try {
-        const books = await Book.find();
+        const books = await bookService.findAllBooks();
         res.render('book_list', { title: 'Book List', book_list: books });
     } catch (err) {
         res.status(500).send("Error retrieving books: " + err);
     }
 };
 
-// Display detail page for a specific book
 exports.book_detail = async (req, res) => {
     try {
-        const book = await Book.findById(req.params.id);
+        const book = await bookService.findBookById(req.params.id);
         if (!book) {
             res.status(404).send("No book found with that ID");
         } else {
@@ -24,32 +22,22 @@ exports.book_detail = async (req, res) => {
     }
 };
 
-// Display book create form on GET
 exports.book_create_get = (req, res) => {
     res.render('book_form', { title: 'Create Book' });
 };
 
-// Handle book create on POST
 exports.book_create_post = async (req, res) => {
-    const book = new Book({
-        title: req.body.title,
-        author: req.body.author,
-        genre: req.body.genre,
-        rating: req.body.rating,
-        reviewText: req.body.reviewText
-    });
     try {
-        await book.save();
-        res.redirect(book.url);
+        const book = await bookService.createBook(req.body);
+        res.redirect(`/books/${book._id}`);
     } catch (err) {
         res.status(500).send("Failed to create book: " + err);
     }
 };
 
-// Display book delete form on GET
 exports.book_delete_get = async (req, res) => {
     try {
-        const book = await Book.findById(req.params.id);
+        const book = await bookService.findBookById(req.params.id);
         if (!book) {
             res.redirect('/books');
         } else {
@@ -60,20 +48,18 @@ exports.book_delete_get = async (req, res) => {
     }
 };
 
-// Handle book delete on POST
 exports.book_delete_post = async (req, res) => {
     try {
-        await Book.findByIdAndRemove(req.body.bookid);
+        await bookService.deleteBook(req.body.bookid);
         res.redirect('/books');
     } catch (err) {
         res.status(500).send("Failed to delete book: " + err);
     }
 };
 
-// Display book update form on GET
 exports.book_update_get = async (req, res) => {
     try {
-        const book = await Book.findById(req.params.id);
+        const book = await bookService.findBookById(req.params.id);
         if (!book) {
             res.redirect('/books');
         } else {
@@ -84,18 +70,10 @@ exports.book_update_get = async (req, res) => {
     }
 };
 
-// Handle book update on POST
 exports.book_update_post = async (req, res) => {
-    const book = {
-        title: req.body.title,
-        author: req.body.author,
-        genre: req.body.genre,
-        rating: req.body.rating,
-        reviewText: req.body.reviewText
-    };
     try {
-        await Book.findByIdAndUpdate(req.params.id, book);
-        res.redirect('/books');
+        const updatedBook = await bookService.updateBook(req.params.id, req.body);
+        res.redirect(`/books/${updatedBook._id}`);
     } catch (err) {
         res.status(500).send("Failed to update book: " + err);
     }
