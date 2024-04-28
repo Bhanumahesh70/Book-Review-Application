@@ -3,9 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 require('./config/passport')(passport); // pass passport for configuration
+require('dotenv').config();
 const errorHandler = require('./middlewares/errorHandler');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,6 +24,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Connect to MongoDB Atlas
+console.log('MongoDB URI:', process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Failed to connect to MongoDB', err));
 
 // Session configuration
 app.use(session({
