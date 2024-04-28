@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
 const passport = require('passport');
 require('./config/passport')(passport); // pass passport for configuration
 const errorHandler = require('./middlewares/errorHandler');
@@ -21,6 +22,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Session configuration
+app.use(session({
+  secret: 'your_secret_key', // This is a secret key to sign the session ID cookie.
+  resave: false,             // Forces the session to be saved back to the session store
+  saveUninitialized: true,   // Forces a session that is "uninitialized" to be saved to the store
+  cookie: { secure: false }  // Note: Set secure to true if using HTTPS, false otherwise
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -49,7 +58,7 @@ app.use(function(err, req, res, next) {
 app.use(errorHandler);
 
 // Server listening
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

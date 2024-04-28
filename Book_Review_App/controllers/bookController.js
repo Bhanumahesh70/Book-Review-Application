@@ -1,14 +1,17 @@
 const bookService = require('../services/bookService');
 
+
+//Display List of all books
 exports.book_list = async (req, res) => {
     try {
         const books = await bookService.findAllBooks();
-        res.render('book_list', { title: 'Book List', book_list: books });
+        res.render('book_list', { title: 'Book List', books: books });
     } catch (err) {
         res.status(500).send("Error retrieving books: " + err);
     }
 };
 
+// Display detail page for a specific book
 exports.book_detail = async (req, res) => {
     try {
         const book = await bookService.findBookById(req.params.id);
@@ -22,10 +25,12 @@ exports.book_detail = async (req, res) => {
     }
 };
 
+// Display book create form on GET
 exports.book_create_get = (req, res) => {
     res.render('book_form', { title: 'Create Book' });
 };
 
+// Handle book create on POST
 exports.book_create_post = async (req, res) => {
     try {
         const book = await bookService.createBook(req.body);
@@ -35,6 +40,7 @@ exports.book_create_post = async (req, res) => {
     }
 };
 
+// Display book delete form on GET
 exports.book_delete_get = async (req, res) => {
     try {
         const book = await bookService.findBookById(req.params.id);
@@ -48,6 +54,7 @@ exports.book_delete_get = async (req, res) => {
     }
 };
 
+// Handle book delete on POST
 exports.book_delete_post = async (req, res) => {
     try {
         await bookService.deleteBook(req.body.bookid);
@@ -57,6 +64,7 @@ exports.book_delete_post = async (req, res) => {
     }
 };
 
+// Display book update form on GET
 exports.book_update_get = async (req, res) => {
     try {
         const book = await bookService.findBookById(req.params.id);
@@ -70,6 +78,7 @@ exports.book_update_get = async (req, res) => {
     }
 };
 
+// Handle book update on POST
 exports.book_update_post = async (req, res) => {
     try {
         const updatedBook = await bookService.updateBook(req.params.id, req.body);
