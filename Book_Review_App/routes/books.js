@@ -29,5 +29,10 @@ router.get('/:id/delete', isAuthenticated, bookController.book_delete_get);
 // POST request to delete Book
 router.post('/:id/delete', isAuthenticated, bookController.book_delete_post);
 
+// POST request to add or update a review
+router.post('/:id/review', isAuthenticated, bookController.add_or_update_review_post);
+
+// POST request to delete a review
+router.post('/:id/review/delete', isAuthenticated, bookController.delete_review_post);
 
 module.exports = router;

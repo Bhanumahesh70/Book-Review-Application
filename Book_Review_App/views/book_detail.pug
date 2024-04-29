@@ -4,12 +4,19 @@ block content
   h1= book.title
   h2 Author: #{book.author}
   p Genre: #{book.genre}
-  p Rating: #{book.rating} / 5
-  p Review:
-    blockquote #{book.reviewText}
+  p Average Rating: #{book.averageRating.toFixed(1)} / 5
 
-  // Buttons for Edit and Delete
-  if user && user.isAdmin 
-    a.btn(href=`/books/${book._id}/update`) Edit
-    form(action=`/books/${book._id}/delete`, method="POST")
-      button.btn(type="submit") Delete
+  each review in book.reviews
+    blockquote
+      p= review.text
+      footer -- #{review.user.username} on #{review._createdAt.toDateString()}
+      if user && review.user._id.toString() === user._id.toString()
+        form(action=`/books/${book._id}/review/delete`, method="POST")
+          button(type="submit") Delete
+
+  if user
+    h3 Add or Update Your Review
+    form(action=`/books/${book._id}/review`, method="POST")
+      input(type='number', name='rating', min='1', max='5', required=true, placeholder='Your rating (1-5)')
+      textarea(name='text', required=true, rows='4', placeholder='Write your review here')
+      button(type='submit') Submit Review

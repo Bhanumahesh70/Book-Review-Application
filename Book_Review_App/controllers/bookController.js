@@ -18,14 +18,17 @@ exports.book_list = async (req, res) => {
 exports.book_detail = async (req, res) => {
     console.log("Inside bookController.book_detail");
     try {
-        const book = await Book.findById(req.params.id).populate('reviews.user');
+        const book = await bookService.findBookById(req.params.id);
         if (!book) {
+            console.log("No book found with that ID");
             res.status(404).send("No book found with that ID");
         } else {
+            console.log("Displaying book details");
             res.render('book_detail', { 
                 title: 'Book Detail', 
                 book: book,
-                averageRating: book.averageRating // Send computed average rating to the view
+            // Send computed average rating to the view
+            averageRating: book.reviews.length ? book.reviews.reduce((acc, curr) => acc + curr.rating, 0) / book.reviews.length : 'No ratings yet'
             });
         }
     } catch (err) {
@@ -113,6 +116,29 @@ exports.book_update_post = async (req, res) => {
     } catch (err) {
         console.log("Error in updating book");
         res.status(500).send("Failed to update book: " + err);
+    }
+};
+
+// Add or update a review
+exports.add_or_update_review_post = async (req, res) => {
+    try {
+        await bookService.addOrUpdateReview(req.params.id, req.user._id, {
+            rating: req.body.rating,
+            text: req.body.text
+        });
+        res.redirect(`/books/${req.params.id}`);
+    } catch (err) {
+        res.status(500).send("Failed to add or update review: " + err);
+    }
+};
+
+// Delete a review
+exports.delete_review_post = async (req, res) => {
+    try {
+        await bookService.removeReview(req.params.id, req.user._id);
+        res.redirect(`/books/${req.params.id}`);
+    } catch (err) {
+        res.status(500).send("Failed to delete review: " + err);
     }
 };
 
