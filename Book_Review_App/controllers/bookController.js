@@ -18,18 +18,21 @@ exports.book_list = async (req, res) => {
 exports.book_detail = async (req, res) => {
     console.log("Inside bookController.book_detail");
     try {
-        const book = await bookService.findBookById(req.params.id);
+        const book = await Book.findById(req.params.id).populate('reviews.user');
         if (!book) {
-            console.log("No book found with that ID");
             res.status(404).send("No book found with that ID");
         } else {
-            console.log("Displaying book details");
-            res.render('book_detail', { title: 'Book Detail', book: book });
+            res.render('book_detail', { 
+                title: 'Book Detail', 
+                book: book,
+                averageRating: book.averageRating // Send computed average rating to the view
+            });
         }
     } catch (err) {
         res.status(500).send("Error retrieving book: " + err);
     }
 };
+
 
 // Display book create form on GET
 exports.book_create_get = (req, res) => {

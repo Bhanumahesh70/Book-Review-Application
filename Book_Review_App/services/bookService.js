@@ -20,6 +20,12 @@ async function updateBook(id, bookData) {
 async function deleteBook(id) {
     return Book.findByIdAndDelete(id);
 }
+async function addReview(bookId, reviewData) {
+    const book = await Book.findById(bookId);
+    book.reviews.push(reviewData);
+    return book.save();
+}
+
 
 module.exports = {
     createBook,
