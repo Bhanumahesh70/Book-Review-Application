@@ -8,8 +8,9 @@ block content
 
   each review in book.reviews
     blockquote
-      p= review.text
-      footer -- #{review.user.username} on #{review._createdAt.toDateString()}
+      p review: #{review.text}
+      p rating: #{review.rating}
+      footer -- #{review.user ? review.user.username : 'Unknown'} on #{review.createdAt.toDateString()}
       if user && review.user._id.toString() === user._id.toString()
         form(action=`/books/${book._id}/review/delete`, method="POST")
           button(type="submit") Delete

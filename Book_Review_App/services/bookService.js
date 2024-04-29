@@ -1,16 +1,36 @@
 const Book = require('../models/book');
+const { ObjectId } = require('mongoose').Types;
+
 
 async function createBook(bookData) {
-    const book = new Book(bookData);
+    console.log("Received book data for creation:", bookData);
+
+    // Check if reviews exist and map over them to transform user string into ObjectId
+    const reviews = bookData.reviews ? bookData.reviews.map(review => ({
+        ...review,
+        user: new ObjectId(review.user) // Convert user string to ObjectId
+    })) : [];
+
+    const book = new Book({
+        title: bookData.title,
+        author: bookData.author,
+        genre: bookData.genre,
+        reviews: reviews
+    });
+
     return book.save();
 }
+
 
 async function findAllBooks() {
     return Book.find();
 }
 
 async function findBookById(id) {
-    return Book.findById(id).populate('reviews.user');;
+    return Book.findById(id).populate({
+        path: 'reviews.user',
+        select: 'username' // only fetch the username from the user document
+    });;
 }
 
 async function updateBook(id, bookData) {

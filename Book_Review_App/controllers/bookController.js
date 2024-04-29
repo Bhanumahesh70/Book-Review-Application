@@ -46,6 +46,35 @@ exports.book_create_get = (req, res) => {
 // Handle book create on POST
 exports.book_create_post = async (req, res) => {
     console.log("Inside bookController.book_create_post");
+    console.log(req.body)
+    const { title, author, genre } = req.body;
+    let reviews = [];
+
+    // Convert flat review keys into structured data
+    Object.keys(req.body).forEach(key => {
+        if (key.startsWith('reviews[')) {
+            const match = key.match(/reviews\[(\d+)\]\[(\w+)\]/);
+            if (match) {
+                const index = parseInt(match[1]);
+                const property = match[2];
+                reviews[index] = reviews[index] || {};
+                reviews[index][property] = req.body[key];
+            }
+        }
+    });
+
+    // Call the createBook function
+    try {
+        const bookData = { title, author, genre, reviews };
+        const book = await bookService.createBook(bookData);
+        console.log("Book Created Succesfully");
+        //res.status(201).send(book);
+        res.redirect(`/books/${book._id}`);
+    } catch (error) {
+        console.error('Failed to create book:', error);
+        res.status(400).send(error);
+    }
+    /*
     try {
         const book = await bookService.createBook(req.body);
         console.log("Book Created Succesfully");
@@ -54,6 +83,7 @@ exports.book_create_post = async (req, res) => {
         console.log("Book is not Created");
         res.status(500).send("Failed to create book: " + err);
     }
+    */
 };
 
 // Display book delete form on GET
