@@ -17,23 +17,6 @@ block content
       li
         a(href='/users/register') Register
 
-  // List of books
-  if books && books.length
-    ul.books
-      each book in books
-        li.book-item
-          h2= book.title
-          p Author: #{book.author}
-          p Genre: #{book.genre}
-          p Rating: #{book.rating}
-          p Review: #{book.reviewText}
-          // Edit and delete options
-          if user
-            a(href=`/books/edit/${book._id}`) Edit
-            a(href=`/books/delete/${book._id}`) Delete
-  else
-    p No books to display.
-
   // Add book link (visible to logged-in users)
   if user
     a(href='/books/') View Books
