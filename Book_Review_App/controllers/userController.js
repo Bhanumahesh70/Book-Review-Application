@@ -13,7 +13,7 @@ exports.user_create_post = async (req, res) => {
         res.redirect('/users/login');
     } catch (err) {
         // Handle error e.g., user already exists or database errors
-        res.render('register', { message: 'User could not be created: ' + err.message });
+        res.render('register', { error: 'User could not be created: ' + err.message });
     }
 };
 
