@@ -12,6 +12,7 @@ block content
       p rating: #{review.rating}
       footer -- #{review.user ? review.user.username : 'Unknown'} on #{review.createdAt.toDateString()}
       if user && review.user._id.toString() === user._id.toString()
+        a(href=`/books/${book._id}/review/edit`) Edit
         form(action=`/books/${book._id}/review/delete`, method="POST")
           button(type="submit") Delete
 

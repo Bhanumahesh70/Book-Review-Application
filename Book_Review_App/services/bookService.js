@@ -62,6 +62,18 @@ async function addOrUpdateReview(bookId, userId, reviewData) {
 
     return book.save();
 }
+async function updateReview(bookId, userId, reviewData) {
+    const book = await Book.findById(bookId);
+    const reviewIndex = book.reviews.findIndex(review => review.user.toString() === userId.toString());
+
+    if (reviewIndex > -1) {
+        // Merge new review data
+        book.reviews[reviewIndex] = { ...book.reviews[reviewIndex].toObject(), ...reviewData };
+        return book.save();
+    } else {
+        throw new Error("Review not found");
+    }
+}
 
 // Remove a review
 async function removeReview(bookId, userId) {
@@ -76,5 +88,7 @@ module.exports = {
     updateBook,
     deleteBook,
     addOrUpdateReview,
-    removeReview
+    removeReview,
+    updateReview,
+    addReview
 };

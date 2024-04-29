@@ -28,7 +28,9 @@ exports.book_detail = async (req, res) => {
                 title: 'Book Detail', 
                 book: book,
             // Send computed average rating to the view
-            averageRating: book.reviews.length ? book.reviews.reduce((acc, curr) => acc + curr.rating, 0) / book.reviews.length : 'No ratings yet'
+            averageRating: book.reviews.length ? book.reviews.reduce((acc, curr) => acc + curr.rating, 0) / book.reviews.length : 'No ratings yet',
+            user: req.user,
+            user_id: req.user ? req.user._id.toString() : null
             });
         }
     } catch (err) {
@@ -125,6 +127,7 @@ exports.book_delete_post = async (req, res) => {
     }
 };
 
+
 // Display book update form on GET
 exports.book_update_get = async (req, res) => {
     console.log("Inside bookController.book_update_get");
@@ -157,7 +160,36 @@ exports.book_update_post = async (req, res) => {
     }
 };
 
+/*
+* For Reviews
+*/
+
 // Add or update a review
+exports.update_review_get = async (req, res) => {
+    console.log("Inside bookController.update_review_get");
+    try {
+        const book = await bookService.findBookById(req.params.id);
+        if (!book) {
+            console.log("book is not found to update");
+            res.redirect('/books');
+        } else {
+            console.log("book: ",book);
+            console.log("looged user ",req.user._id.toString());
+            
+            const review = book.reviews.find(review => review.user._id.toString() === req.user._id.toString());
+            console.log("review.user.toString() ", review.user._id.toString());
+            if (!review) {
+                res.status(404).send("Review not found");
+                return;
+            }
+            console.log("Displaying book form to update");
+            res.render('review_form', { title: 'Edit Review', book: book, review: review });
+        }
+    } catch (err) {
+        res.status(500).send("Error retrieving review: " + err);
+    }
+};
+
 exports.add_or_update_review_post = async (req, res) => {
     try {
         await bookService.addOrUpdateReview(req.params.id, req.user._id, {
@@ -169,6 +201,19 @@ exports.add_or_update_review_post = async (req, res) => {
         res.status(500).send("Failed to add or update review: " + err);
     }
 };
+
+exports.update_review_post = async (req, res) => {
+    try {
+        await bookService.updateReview(req.params.id, req.user._id, {
+            rating: req.body.rating,
+            text: req.body.text
+        });
+        res.redirect(`/books/${req.params.id}`);
+    } catch (err) {
+        res.status(500).send("Failed to update review: " + err);
+    }
+};
+
 
 // Delete a review
 exports.delete_review_post = async (req, res) => {

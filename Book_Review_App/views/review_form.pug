@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1= title
+  h2 Editing Review for #{book.title}
+
+  // Display any errors or messages
+  if locals.error
+    p.error= error
+  if locals.success
+    p.success= success
+
+  // Form for submitting review update
+  form(action=`/books/${book._id}/review/update`, method="POST")
+    // Rating input
+    div.form-group
+      label(for="rating") Rating (1-5):
+      input(type="number", id="rating", name="rating", required=true, min=1, max=5, value=review.rating)
+
+    // Textarea for review text
+    div.form-group
+      label(for="text") Review Text:
+      textarea(id="text", name="text", required=true, rows="5")= review.text
+
+    // Submit button
+    button(type="submit") Update Review
+
+    // A link back to the book detail page, in case the user decides not to edit the review
+    a(href=`/books/${book._id}`) Cancel
