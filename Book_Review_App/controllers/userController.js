@@ -19,8 +19,14 @@ exports.user_create_post = async (req, res) => {
 
 // Display login form
 exports.user_login_get = (req, res) => {
-    res.render('login');
+    // Check if there are any flash messages and send them to the view
+    res.render('login', {
+        messages: {
+            error: req.flash('error')  // This will either be an array of messages or an empty array
+        }
+    });
 };
+
 
 // Handle login on POST
 exports.user_login_post = (req, res, next) => {

@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 require('./config/passport')(passport); // pass passport for configuration
@@ -34,7 +35,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 // Session configuration
 app.use(session({
-  secret: 'your_secret_key', // This is a secret key to sign the session ID cookie.
+  secret: process.env.SESSION_SECRET, // This is a secret key to sign the session ID cookie.
   resave: false,             // Forces the session to be saved back to the session store
   saveUninitialized: true,   // Forces a session that is "uninitialized" to be saved to the store
   cookie: { secure: false }  // Note: Set secure to true if using HTTPS, false otherwise
@@ -42,6 +43,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Use flash middleware
+app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -2,16 +2,18 @@ extends layout
 
 block content
   h1 Login
-  if error
-    p.error #{error}
+  if messages.error
+    .alert.alert-danger
+      each error in messages.error
+        p= error
 
   form(action='/users/login', method='POST')
-    div.form-group
-      label(for='username') Username:
+    .form-group
+      label(for='username') Username
       input#username(type='text', name='username', required='required')
 
-    div.form-group
-      label(for='password') Password:
+    .form-group
+      label(for='password') Password
       input#password(type='password', name='password', required='required')
 
-    button(type='submit') Log in
+    button(type='submit') Log In
