@@ -3,7 +3,7 @@ extends layout
 block content
   h1 #{book ? 'Update Book' : 'Create Book'}
   
-  form(action=book ? `/books/${book._id}/update` : '/books/add', method='POST')
+  form(action=book ? `/books/${book._id}/update` : '/books/create', method='POST')
     .form-group
       label(for='title') Title:
       input#title(type='text', name='title', required='true', value=book ? book.title : '')

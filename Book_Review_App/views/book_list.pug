@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 Book List
+
+  if books.length == 0
+    p No books available at the moment.
+  else
+    ul
+      each book in books
+        li
+          h2= book.title
+          p Author: #{book.author}
+          p Genre: #{book.genre}
+          p Rating: #{book.rating} / 5
+          a(href=`/books/${book._id}`) View Details
+
+  // Link to add a new book
+  a(href='/books/create').btn Add New Book

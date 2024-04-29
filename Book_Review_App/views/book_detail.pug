@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= book.title
+  h2 Author: #{book.author}
+  p Genre: #{book.genre}
+  p Rating: #{book.rating} / 5
+  p Review:
+    blockquote #{book.reviewText}
+
+  // Buttons for Edit and Delete
+  if user && user.isAdmin 
+    a.btn(href=`/books/${book._id}/update`) Edit
+    form(action=`/books/${book._id}/delete`, method="POST")
+      button.btn(type="submit") Delete
