@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1 #{book ? 'Update Book' : 'Create Book'}
+  
+  form(action=book ? `/books/${book._id}/update` : '/books/add', method='POST')
+    .form-group
+      label(for='title') Title:
+      input#title(type='text', name='title', required='true', value=book ? book.title : '')
+
+    .form-group
+      label(for='author') Author:
+      input#author(type='text', name='author', required='true', value=book ? book.author : '')
+
+    .form-group
+      label(for='genre') Genre:
+      input#genre(type='text', name='genre', required='true', value=book ? book.genre : '')
+
+    .form-group
+      label(for='rating') Rating (1-5):
+      input#rating(type='number', name='rating', min='1', max='5', required='true', value=book ? book.rating : 1)
+
+    .form-group
+      label(for='reviewText') Review Text:
+      textarea#reviewText(name='reviewText', required='true', rows='5')
+        | #{book ? book.reviewText : ''}
+
+    button(type='submit') #{book ? 'Update Book' : 'Create Book'}

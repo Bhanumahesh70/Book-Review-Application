@@ -39,8 +39,10 @@ exports.user_login_post = (req, res, next) => {
 
 // Logout
 exports.user_logout_get = (req, res) => {
-    req.logout();
-    res.redirect('/');
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
 };
 
 module.exports = exports;
