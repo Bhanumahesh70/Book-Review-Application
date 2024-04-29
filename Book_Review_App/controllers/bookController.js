@@ -50,6 +50,14 @@ exports.book_create_post = async (req, res) => {
     const { title, author, genre } = req.body;
     let reviews = [];
 
+    //logged in user
+    if (req.user) {
+        console.log("Logged in user ID:", req.user._id);
+    } else {
+        console.log("No user is logged in.");
+        return res.status(403).send("User must be logged in to create a book.");
+    }
+
     // Convert flat review keys into structured data
     Object.keys(req.body).forEach(key => {
         if (key.startsWith('reviews[')) {
@@ -57,12 +65,12 @@ exports.book_create_post = async (req, res) => {
             if (match) {
                 const index = parseInt(match[1]);
                 const property = match[2];
-                reviews[index] = reviews[index] || {};
+                reviews[index] = reviews[index] || {user: req.user._id };
                 reviews[index][property] = req.body[key];
             }
         }
     });
-
+    console.log("Structured reviews with user IDs:", reviews);
     // Call the createBook function
     try {
         const bookData = { title, author, genre, reviews };
