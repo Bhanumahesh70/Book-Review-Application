@@ -30,19 +30,17 @@ Using Passport.js for user authentication, express-session for secure session ma
 
 ## Username and Passwords
 username: user1
-Password: user1234556
+Password: user123456
 
 username: user2
-Password: user1234556
+Password: user123456
 
 username: user3
-Password: user1234556
+Password: user123456
 
 username: user4
-Password: user1234556
+Password: user123456
 
-username: user5
-Password: user1234556
 ---
 
 ### Welcome Page
