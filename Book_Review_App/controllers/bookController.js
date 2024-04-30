@@ -7,7 +7,8 @@ exports.book_list = async (req, res) => {
     try {
         console.log("Displaying book details");
         const books = await bookService.findAllBooks();
-        res.render('book_list', { title: 'Book List', books: books });
+        res.render('book_list', { title: 'Book List', books: books,user: req.user,
+        user_id: req.user ? req.user._id.toString() : null });
     } catch (err) {
         console.log("Error retrieving books");
         res.status(500).send("Error retrieving books: " + err);
@@ -75,7 +76,7 @@ exports.book_create_post = async (req, res) => {
     console.log("Structured reviews with user IDs:", reviews);
     // Call the createBook function
     try {
-        const bookData = { title, author, genre, reviews };
+        const bookData = { title, author, genre,createdByUser: req.user._id, reviews };
         const book = await bookService.createBook(bookData);
         console.log("Book Created Succesfully");
         //res.status(201).send(book);
@@ -117,12 +118,16 @@ exports.book_delete_get = async (req, res) => {
 // Handle book delete on POST
 exports.book_delete_post = async (req, res) => {
     console.log("Inside bookController.book_delete_post");
+    const book = await bookService.findBookById(req.params.id);
+    if (book.createdByUser.toString() !== req.user._id.toString()) {
+        return res.status(403).send("Unauthorized to delete this book");
+    }
     try {
-        await bookService.deleteBook(req.body.bookid);
-        console.log("Book is deleted sucessfully");
+        await bookService.deleteBook(req.params.id);
+        console.log("Book deleted successfully");
         res.redirect('/books');
     } catch (err) {
-        console.log("Error in deleting the book");
+        console.log("Error in deleting the book", err);
         res.status(500).send("Failed to delete book: " + err);
     }
 };
@@ -149,13 +154,16 @@ exports.book_update_get = async (req, res) => {
 // Handle book update on POST
 exports.book_update_post = async (req, res) => {
     console.log("Inside bookController.book_update_post");
+    const book = await bookService.findBookById(req.params.id);
+    if (book.createdByUser.toString() !== req.user._id.toString()) {
+        return res.status(403).send("Unauthorized to update this book");
+    }
     try {
-        
-        const updatedBook = await bookService.updateBook(req.params.id, req.body);
-        console.log("Book updated sucessfully");
-        res.redirect(`/books/${updatedBook._id}`);
+        await bookService.updateBook(req.params.id, req.body);
+        console.log("Book updated successfully");
+        res.redirect(`/books/${book._id}`);
     } catch (err) {
-        console.log("Error in updating book");
+        console.log("Error in updating book", err);
         res.status(500).send("Failed to update book: " + err);
     }
 };

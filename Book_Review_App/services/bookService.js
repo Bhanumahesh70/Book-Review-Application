@@ -15,6 +15,7 @@ async function createBook(bookData) {
         title: bookData.title,
         author: bookData.author,
         genre: bookData.genre,
+        createdByUser:bookData.createdByUser,
         reviews: reviews
     });
 

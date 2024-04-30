@@ -48,6 +48,11 @@ const bookSchema = new Schema({
         trim: true,
         maxlength:[100, 'Genre cannot exceed 100 characters']
     },
+    createdByUser: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     reviews: [reviewSchema] // Embed reviews directly within each book document
 }, {
     timestamps: true

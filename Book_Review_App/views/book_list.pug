@@ -12,8 +12,11 @@ block content
           h2= book.title
           p Author: #{book.author}
           p Genre: #{book.genre}
-          p Rating: #{book.averageRating} / 5
+          p Rating: #{book.averageRating.toFixed(1)} / 5
           a(href=`/books/${book._id}`) View Details
+          
+          a(href=`/books/${book._id}/update`) Edit
+          a(href=`/books/${book._id}/delete`) Delete
 
   // Link to add a new book
   a(href='/books/create').btn Add New Book
