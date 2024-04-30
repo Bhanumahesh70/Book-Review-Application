@@ -1,23 +1,26 @@
 extends layout
 
 block content
-  h1 Register
+  .container.mt-5
+    .row.justify-content-center
+      .col-lg-6
+        h1.mb-4 Register
+        form(action='/users/register', method='POST')
+          .form-group
+            label(for='username') Username
+            input#username.form-control(type='text', name='username', required='required', placeholder='Username')
 
-  // Check and display errors if any
-  if error
-    p.error #{error}
+          .form-group
+            label(for='password') Password
+            input#password.form-control(type='password', name='password', required='required', placeholder='Password')
 
-  form(action='/users/register', method='POST')
-    .form-group
-      label(for='username') Username:
-      input#username(type='text', name='username', required='required', placeholder='Enter your username')
+          .form-group
+            label(for='confirmPassword') Confirm Password
+            input#confirmPassword.form-control(type='password', name='confirmPassword', required='required', placeholder='Confirm Password')
 
-    .form-group
-      label(for='password') Password:
-      input#password(type='password', name='password', required='required', placeholder='Enter your password')
+          button.btn.btn-primary(type='submit') Register
 
-    .form-group
-      label(for='confirmPassword') Confirm Password:
-      input#confirmPassword(type='password', name='confirmPassword', required='required', placeholder='Confirm your password')
-
-    button(type='submit') Register
+        if error
+          .alert.alert-danger
+            each error in messages.error
+              p= error
