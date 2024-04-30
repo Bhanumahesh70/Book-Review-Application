@@ -31,17 +31,21 @@ Using Passport.js for user authentication, express-session for secure session ma
 ---
 
 ### Welcome Page
-![Welcome Page](Screenshot%20(1658).png)
+![Screenshot (1658)](https://github.com/Bhanumahesh70/ITMD542_FinalProject/assets/144741762/c6cd1661-08b1-4017-bb26-7064362a3537)
+
 - Description: This is the welcome page of the application where users land upon visiting. It provides a brief overview of the application's features and functionality.
 
 ### List of Books
-![List of Books](Screenshot%20(1661).png)
+![Screenshot (1661)](https://github.com/Bhanumahesh70/ITMD542_FinalProject/assets/144741762/b9a8263d-7fd1-4a5a-b4d9-57d1652b6601)
+
 - Description: In this section, users can view all the books added by other users. However, they can only edit or delete the books they have added themselves.
 
 ### Add/Update Book Review
-![Add/Update Book Review](Screenshot%20(1662).png)
+![Screenshot (1662)](https://github.com/Bhanumahesh70/ITMD542_FinalProject/assets/144741762/c6c2d3d7-913f-4882-9f6b-a5895c474951)
+
 - Description: Users can add or update their reviews for a specific book in this section. They can provide their thoughts and ratings for the books they've read.
 
 ### View Book Reviews
-![View Book Reviews](Screenshot%20(1663).png)
+![Screenshot (1663)](https://github.com/Bhanumahesh70/ITMD542_FinalProject/assets/144741762/6e695f9b-b529-46f5-9d66-8107113423c7)
+
 - Description: Here, users can see all the reviews of the books written by other users. They also have the option to edit or delete the reviews they have written themselves.
