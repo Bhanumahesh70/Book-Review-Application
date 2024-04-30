@@ -243,7 +243,7 @@ exports.allreviews_get = async (req, res) => {
 exports.delete_review_post = async (req, res) => {
     try {
         await bookService.removeReview(req.params.id, req.user._id);
-        res.redirect(`/books/${req.params.id}`);
+        res.redirect(`/books/${req.params.id}/allreviews`);
     } catch (err) {
         res.status(500).send("Failed to delete review: " + err);
     }
