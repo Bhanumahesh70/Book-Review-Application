@@ -143,7 +143,7 @@ exports.book_update_get = async (req, res) => {
             res.redirect('/books');
         } else {
             console.log("Displaying book form to update");
-            res.render('book_form', { title: 'Update Book', book: book });
+            res.render('book_form', { title: 'Update Book', book: book,currentUser: req.user || {} });
         }
     } catch (err) {
         console.log("Error in updating book");
@@ -191,7 +191,7 @@ exports.update_review_get = async (req, res) => {
                 return;
             }
             console.log("Displaying book form to update");
-            res.render('review_form', { title: 'Edit Review', book: book, review: review });
+            res.render('review_form', { title: 'Edit Review', book: book, review: review,messages: {} });
         }
     } catch (err) {
         res.status(500).send("Error retrieving review: " + err);

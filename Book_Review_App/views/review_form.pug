@@ -1,28 +1,26 @@
 extends layout
 
 block content
-  .container#update-review-container
-    .row.justify-content-center
-      .col-md-8
-        h1#update-review-title.text-center Editing Review for #{book.title}
+  .container#book-detail-container
+    .row
+      .col-12
+        h1#book-title.text-center.mt-3 Editing Review for #{book.title}
 
-        // Form for submitting review update
         form#review-form(action=`/books/${book._id}/review/update`, method="POST")
           .form-group#rating-group
-            label(for="rating") Rating (1-5):
-            input.form-control(type="number", id="rating", name="rating", required=true, min="1", max="5", value=review.rating)
-            if messages.ratingError
-              .invalid-feedback#rating-error(style="display:block;")
-                p= messages.ratingError
+            label(for='rating') Your Rating (1-5)
+            input.form-control#user-rating(type='number', name='rating', min='1', max='5', required=true, value=review.rating)
+            if messages && messages.textError
+             .invalid-feedback Rating must be between 1 and 5.
 
           .form-group#text-group
-            label(for="text") Review Text:
-            textarea.form-control(id="text", name="text", required=true, rows="5").form-control= review.text
-            if messages.textError
-              .invalid-feedback#text-error(style="display:block;")
-                p= messages.textError
+            label(for='text') Your Review
+            textarea.form-control#user-review(name='text', required=true, rows='5', placeholder='Write your review here',minlength='10', maxlength='5000')
+            if messages && messages.textError
+              .invalid-feedback Review must be between 10 and 5000 characters.
 
           .btn-toolbar#review-buttons
             button.btn.btn-primary(type="submit") Update Review
             a.btn.btn-secondary.ml-2(href=`/books/${book._id}`) Cancel
+
     script(src="/javascripts/reviewFormValidation.js")
