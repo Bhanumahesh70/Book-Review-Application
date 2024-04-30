@@ -1,15 +1,18 @@
 extends layout
 
 block content
-  h1 Error
+  .container.mt-5#error-container
+    .row.justify-content-center
+      .col-md-8
+        h1.text-center#error-title Error
 
-  // Displaying the error message
-  h2 Status: #{error.status || "Unknown"}
-  p Message: #{error.message || "An unknown error occurred."}
+        // Displaying the error message
+        h2#status.text-warning Status: #{error.status || "Unknown"}
+        p#message.text-danger Message: #{error.message || "An unknown error occurred."}
 
-  // Additional error details, useful for debugging (not for production use)
-  //- Uncomment the line below for development environment only
-  //pre #{error.stack}
+        // Conditionally display additional error details (for development use)
+        if error.stack
+          pre#debug-info #{error.stack}
 
-  // Link to go back home or to a help page
-  a(href='/') Go back to home
+        // Link to go back home or to a help page
+        a.btn.btn-primary(href='/') Go back to home

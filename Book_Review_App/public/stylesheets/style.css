@@ -323,3 +323,39 @@ footer p {
   background-color: #007bff; /* Bootstrap primary blue for visual importance */
   box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Subtle shadow for aesthetic enhancement */
 }
+#error-container {
+  margin-top: 50px; /* Adds vertical space at the top */
+}
+
+#error-title {
+  color: #dc3545; /* Bootstrap's danger color for consistency */
+  margin-bottom: 20px;
+}
+
+#status {
+  color: #ffc107; /* Bootstrap's warning color for status */
+}
+
+#message {
+  color: #dc3545; /* Text color for error message to make it stand out */
+  margin-bottom: 30px; /* Extra space below the message for clarity */
+}
+
+#debug-info {
+  background-color: #f8f9fa; /* Light background for debug stack */
+  color: #333; /* Dark text for readability */
+  padding: 15px;
+  border-radius: 5px; /* Rounded corners */
+  white-space: pre-wrap; /* Ensures stack traces are formatted nicely */
+  word-wrap: break-word; /* Breaks long words to prevent horizontal scrolling */
+}
+
+a.btn-primary {
+  background-color: #007bff; /* Bootstrap primary button color */
+  border-color: #007bff;
+}
+
+.home-button {
+  background-color: #17a2b8; /* Bootstrap info blue for consistency */
+  margin-top: 100px;
+}

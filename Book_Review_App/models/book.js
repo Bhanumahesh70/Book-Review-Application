@@ -34,7 +34,7 @@ const bookSchema = new Schema({
         required: [true, 'Book title is required'],
         trim: true,
         unique: true, // Ensure each book title is unique
-        maxlength: [500, 'Book title cannot exceed 500 characters']
+        maxlength: [500, 'Book title cannot exceed 500 characters'],
     },
     author: {
         type: String,
