@@ -1,15 +1,32 @@
 extends layout
 
 block content
-  h1= book.title
-  h2 Author: #{book.author}
-  p Genre: #{book.genre}
-  p Average Rating: #{book.averageRating.toFixed(1)} / 5
-  button(onclick=`location.href='/books/${book._id}/allreviews'` type="button") All user reviews
-  button(onclick="location.href='/books/'" type="button") Back
-  if user
-    h3 Add or Update Your Review
-    form(action=`/books/${book._id}/review`, method="POST")
-      input(type='number', name='rating', min='1', max='5', required=true, placeholder='Your rating (1-5)')
-      textarea(name='text', required=true, rows='4', placeholder='Write your review here')
-      button(type='submit') Submit Review
+  .container#book-detail-container
+    .row
+      .col-12
+        h1#book-title.text-center.mt-3= book.title
+        h2#book-author.text-center Author: #{book.author}
+        p#book-genre.text-center Genre: #{book.genre}
+        p#book-rating.text-center Average Rating: #{book.averageRating.toFixed(1)} / 5
+
+    .row.mt-4
+      .col-12.d-flex.justify-content-center
+        button.btn.btn-info(onclick=`location.href='/books/${book._id}/allreviews'`, type="button") All user reviews
+        button.btn.btn-secondary.ml-2(onclick="location.href='/books/'", type="button") Back
+
+    if user
+      .row.justify-content-center.mt-4
+        .col-md-6
+          h3#user-review-title.text-center Add or Update Your Review
+          form#review-form(action=`/books/${book._id}/review`, method="POST", novalidate)
+            .form-group
+              label(for='rating') Your Rating (1-5)
+              input.form-control#user-rating(type='number', name='rating', min='1', max='5', required=true, placeholder='Your rating (1-5)')
+              .invalid-feedback Rating must be between 1 and 5.
+            .form-group
+              label(for='text') Your Review
+              textarea.form-control#user-review(name='text', required=true, rows='4', placeholder='Write your review here', minlength='10', maxlength='5000')
+              .invalid-feedback Review must be between 10 and 5000 characters.
+            button.btn.btn-primary#submit-review(type='submit') Submit Review
+
+  script(src="/javascripts/reviewformValidation.js")

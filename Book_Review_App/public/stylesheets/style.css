@@ -122,3 +122,36 @@ footer p {
   margin-right: 0;
 }
 
+#book-detail-container {
+  background-color: #f8f9fa; /* Light background for the container */
+  padding: 20px; /* Padding around the content */
+  border-radius: 5px; /* Rounded corners for the container */
+}
+
+#book-title {
+  color: #0056b3; /* Dark blue for the book title */
+}
+
+#user-review-title {
+  color: #28a745; /* Green color for headings */
+}
+
+#review-form {
+  background-color: #ffffff; /* White background for the form */
+  padding: 15px; /* Padding inside the form */
+  border-radius: 5px; /* Rounded corners for the form */
+  box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Subtle shadow for depth */
+}
+
+.btn-info {
+  margin-right: 10px; /* Spacing between buttons */
+}
+
+.is-invalid {
+  border-color: #dc3545; /* Bootstrap's is-invalid border color */
+}
+
+.invalid-feedback {
+  display: block;
+  color: #dc3545; /* Bootstrap's is-invalid text color */
+}
