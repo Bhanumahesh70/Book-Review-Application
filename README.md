@@ -30,3 +30,18 @@ Using Passport.js for user authentication, express-session for secure session ma
 
 ---
 
+### Welcome Page
+![Welcome Page](Screenshot%20(1658).png)
+- Description: This is the welcome page of the application where users land upon visiting. It provides a brief overview of the application's features and functionality.
+
+### List of Books
+![List of Books](Screenshot%20(1661).png)
+- Description: In this section, users can view all the books added by other users. However, they can only edit or delete the books they have added themselves.
+
+### Add/Update Book Review
+![Add/Update Book Review](Screenshot%20(1662).png)
+- Description: Users can add or update their reviews for a specific book in this section. They can provide their thoughts and ratings for the books they've read.
+
+### View Book Reviews
+![View Book Reviews](Screenshot%20(1663).png)
+- Description: Here, users can see all the reviews of the books written by other users. They also have the option to edit or delete the reviews they have written themselves.
