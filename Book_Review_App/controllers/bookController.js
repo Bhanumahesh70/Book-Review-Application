@@ -214,6 +214,30 @@ exports.update_review_post = async (req, res) => {
     }
 };
 
+//See all reviews
+exports.allreviews_get = async (req, res) => {
+    console.log("Inside bookController.allreviews_get");
+    try {
+        const book = await bookService.findBookById(req.params.id);
+        if (!book) {
+            console.log("No book found with that ID");
+            res.status(404).send("No book found with that ID");
+        } else {
+            console.log("Displaying book details");
+            res.render('allUser_reviews', { 
+                title: 'All User Reviews', 
+                book: book,
+            // Send computed average rating to the view
+            averageRating: book.reviews.length ? book.reviews.reduce((acc, curr) => acc + curr.rating, 0) / book.reviews.length : 'No ratings yet',
+            user: req.user,
+            user_id: req.user ? req.user._id.toString() : null
+            });
+        }
+    } catch (err) {
+        res.status(500).send("Error retrieving book: " + err);
+    }
+
+};
 
 // Delete a review
 exports.delete_review_post = async (req, res) => {

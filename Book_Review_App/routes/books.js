@@ -32,6 +32,8 @@ router.post('/:id/delete', isAuthenticated, bookController.book_delete_post);
 /*
 *routes to view/edit/delete review
 */
+// Get request to get all user reviews
+router.get('/:id/allreviews', isAuthenticated, bookController.allreviews_get);
 
 // POST request to add or update a review
 router.post('/:id/review', isAuthenticated, bookController.add_or_update_review_post);
@@ -42,7 +44,10 @@ router.get('/:id/review/edit', isAuthenticated, bookController.update_review_get
 // POST request to update an existing review
 router.post('/:id/review/update', isAuthenticated, bookController.update_review_post);
 
+
 // POST request to delete a review
 router.post('/:id/review/delete', isAuthenticated, bookController.delete_review_post);
+
+console.log("bookController functions", bookController);
 
 module.exports = router;
