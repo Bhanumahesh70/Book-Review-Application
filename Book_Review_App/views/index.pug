@@ -1,25 +1,27 @@
 extends layout
 
 block content
-  h1 Book Reviews App
+  .container.main-container.mt-5
+    .row.justify-content-center
+      .col-md-8.welcome-col
+        h1.text-center.welcome-title Welcome to Book Reviews App
 
-  // User navigation
-  ul.navigation
-    if user
-      li Welcome #{user.username}
-      li
-        button(onclick="location.href='/books/create'" type="button" class="button-link") Add New Book
-      li
-        button(onclick="location.href='/users/logout'" type="button" class="button-link") Logout
-    else
-      li
-        button(onclick="location.href='/users/login'" type="button" class="button-link") Login
-      li
-        button(onclick="location.href='/users/register'" type="button" class="button-link") Register
+        // Welcome message and user interaction options
+        .card.welcome-card
+          .card-body.welcome-body
+            p.welcome-message Welcome! Please choose one of the following options to proceed:
+            .d-flex.flex-column.align-items-center.action-buttons
+            
+              // Conditional rendering based on user authentication
+              if user
+                p.user-welcome Welcome back, #{user.username}!
+                button.btn.btn-primary.mb-2.view-books-btn(onclick="location.href='/books/'", type="button") View Books
+                button.btn.btn-secondary.logout-btn(onclick="location.href='/users/logout'", type="button") Logout
+              else
+                button.btn.btn-primary.mb-2.login-btn(onclick="location.href='/users/login'", type="button") Login
+                button.btn.btn-secondary.register-btn(onclick="location.href='/users/register'", type="button") Register
 
-  // Add book link (visible to logged-in users)
-  if user
-    button(onclick="location.href='/books/'" type="button") View Books
-
-  button(onclick="location.href='/about'", type="button") About
-  button(onclick="location.href='/contact'", type="button") Contact
+        // Additional Information or links
+        .text-center.info-links.mt-4
+          button.btn.btn-info.about-btn(onclick="location.href='/about'", type="button") About Us
+          button.btn.btn-info.contact-btn(onclick="location.href='/contact'", type="button") Contact Us

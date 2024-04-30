@@ -6,3 +6,28 @@ body {
 a {
   color: #00B7FF;
 }
+
+.main-container {
+  max-width: 800px; /* Sets a maximum width for larger screens */
+}
+
+.welcome-title {
+  color: #0056b3; /* A custom color for the main title */
+}
+
+.welcome-card {
+  background-color: #f8f9fa; /* A light background color for the card */
+  border: 1px solid #dee2e6; /* Adds a subtle border */
+}
+
+.login-btn, .register-btn {
+  width: 100%; /* Makes these buttons full width within their container */
+}
+
+.info-links {
+  padding-top: 20px; /* Adds space above the info links */
+}
+
+.about-btn, .contact-btn {
+  margin: 5px; /* Adds margin between buttons */
+}
