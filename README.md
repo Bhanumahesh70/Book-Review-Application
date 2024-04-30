@@ -28,6 +28,21 @@ To set up the project locally, follow these steps:
 
 Using Passport.js for user authentication, express-session for secure session management, and Mongoose for MongoDB interactions to guarantee data integrity were some of the difficulties faced throughout development. Nevertheless, these difficulties were effectively solved with careful testing and debugging. Now that the program is operating successfully, users may sign up, log in, post reviews, and interact with other community members efficiently. To give readers a visual picture of the functionality of the project, screenshots of the application's user interface and other features are provided in the documentation.
 
+## Username and Passwords
+username: user1
+Password: user1234556
+
+username: user2
+Password: user1234556
+
+username: user3
+Password: user1234556
+
+username: user4
+Password: user1234556
+
+username: user5
+Password: user1234556
 ---
 
 ### Welcome Page
