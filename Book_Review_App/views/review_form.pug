@@ -15,7 +15,8 @@ block content
 
           .form-group#text-group
             label(for='text') Your Review
-            textarea.form-control#user-review(name='text', required=true, rows='5', placeholder='Write your review here',minlength='10', maxlength='5000')
+            textarea.form-control#user-review(name='text', required=true, rows='5',value=review.text, placeholder='Write your review here',minlength='10', maxlength='5000')
+              | #{review.text}
             if messages && messages.textError
               .invalid-feedback Review must be between 10 and 5000 characters.
 

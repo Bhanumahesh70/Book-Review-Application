@@ -152,10 +152,12 @@ footer p {
 }
 
 .invalid-feedback {
-  display: block;
+  display: none;
   color: #dc3545; /* Bootstrap's is-invalid text color */
 }
-
+.is-invalid + .invalid-feedback {
+  display: block; /* Only display when adjacent input is invalid */
+}
 #book-detail-page {
   margin-top: 20px;
 }
@@ -195,4 +197,24 @@ footer p {
 
 .alert {
   margin-top: 10px;
+}
+
+#book-form-container {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#form-title {
+  color: #333;
+}
+
+.form-group label {
+  color: #666;
+}
+
+.btn-toolbar button {
+  width: auto;
+  padding: 0.375rem 0.75rem;
 }

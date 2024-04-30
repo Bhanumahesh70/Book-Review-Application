@@ -1,50 +1,56 @@
 extends layout
 
 block content
-    h1 #{book ? 'Update Book' : 'Create Book'}
+    .container#book-form-container
+        .row.justify-content-center
+            .col-md-8
+                h1#form-title.text-center #{book ? 'Update Book' : 'Create Book'}
 
-    form(action=book ? `/books/${book._id}/update` : '/books/create', method='POST')
-        .form-group
-            label(for='title') Title:
-            input#title(type='text', name='title', required='true', value=book ? book.title : '')
+                form(action=book ? `/books/${book._id}/update` : '/books/create', method='POST', class='mt-4')
+                    .form-group#title-group
+                        label(for='title') Title:
+                        input#title.form-control(type='text', name='title', required='true', value=book ? book.title : '')
 
-        .form-group
-            label(for='author') Author:
-            input#author(type='text', name='author', required='true', value=book ? book.author : '')
+                    .form-group#author-group
+                        label(for='author') Author:
+                        input#author.form-control(type='text', name='author', required='true', value=book ? book.author : '')
 
-        .form-group
-            label(for='genre') Genre:
-            input#genre(type='text', name='genre', required='true', value=book ? book.genre : '')
+                    .form-group#genre-group
+                        label(for='genre') Genre:
+                        input#genre.form-control(type='text', name='genre', required='true', value=book ? book.genre : '')
 
-        // Handling a single review instance by the current user, ensuring currentUser is defined
-        if book && book.reviews && currentUser && currentUser._id
-            - var userReview = book.reviews.find(r => r.user.toString() === currentUser._id.toString())
-            if userReview
-                .form-group
-                    label(for='rating-' + userReview._id) Ratings (1-5):
-                    input(type='number', id='rating-' + userReview._id, name='reviews[' + userReview._id + '][rating]', min='1', max='5', required='true', value=userReview.rating)
+                    if book && book.reviews && currentUser
+                        - var userReview = book.reviews.find(r => r.user.toString() === currentUser._id.toString())
+                        if userReview
+                            .form-group#user-rating-group
+                                label(for='rating-' + userReview._id) Ratings (1-5):
+                                input.form-control(type='number', id='rating-' + userReview._id, name='reviews[' + userReview._id + '][rating]', min='1', max='5', required='true', value=userReview.rating)
 
-                .form-group
-                    label(for='reviewText-' + userReview._id) Review Text:
-                    textarea(id='reviewText-' + userReview._id, name='reviews[' + userReview._id + '][text]', required='true', rows='5')= userReview.text
-            else
-                .form-group
-                    label(for='rating') Rating (1-5):
-                    input#rating(type='number', name='reviews[0][rating]', min='1', max='5', required='true', value=1)
+                            .form-group#user-review-text-group
+                                label(for='reviewText-' + userReview._id) Review Text:
+                                textarea.form-control(id='reviewText-' + userReview._id, name='reviews[' + userReview._id + '][text]', required='true', rows='5')= userReview.text
+                        else
+                            // New review fields for users without an existing review
+                            .form-group#rating-group
+                                label(for='rating') Rating (1-5)
+                                input#rating.form-control(type='number', name='reviews[0][rating]', min='1', max='5', required='true', value=1)
 
-                .form-group
-                    label(for='reviewText') Review Text:
-                    textarea#reviewText(name='reviews[0][text]', required='true', rows='5')
-        else
-            .form-group
-                label(for='rating') Rating (1-5):
-                input#rating(type='number', name='reviews[0][rating]', min='1', max='5', required='true', value=1)
+                            .form-group#review-text-group
+                                label(for='reviewText') Review Text
+                                textarea#reviewText.form-control(name='reviews[0][text]', required='true', rows='5')
+                    else
+                        // New review fields for users without an existing review
+                        .form-group#rating-group
+                            label(for='rating') Rating (1-5)
+                            input#rating.form-control(type='number', name='reviews[0][rating]', min='1', max='5', required='true', value=1)
 
-            .form-group
-                label(for='reviewText') Review Text:
-                textarea#reviewText(name='reviews[0][text]', required='true', rows='5')
+                        .form-group#review-text-group
+                            label(for='reviewText') Review Text
+                            textarea#reviewText.form-control(name='reviews[0][text]', required='true', rows='5', value='')
 
-        button(type='submit') #{book ? 'Update Book' : 'Create Book'}
-    button(onclick="location.href='/'" type="button" class="button-link") Home
-    button(onclick="location.href='/books/'" type="button") Back
+                    .btn-toolbar.mt-3
+                        button.btn.btn-primary(type='submit') #{book ? 'Update Book' : 'Create Book'}
+                        button.btn.btn-secondary.ml-2(onclick="location.href='/'", type="button") Home
+                        button.btn.btn-info.ml-2(onclick="location.href='/books/'", type="button") Back
+
     script(src="/javascripts/bookFormValidation.js")
