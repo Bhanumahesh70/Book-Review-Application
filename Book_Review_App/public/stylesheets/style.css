@@ -84,3 +84,41 @@ footer {
 footer p {
   margin-bottom: 0; /* Removes the default bottom margin from the paragraph */
 }
+
+#book-list-container {
+  padding-top: 20px;
+}
+
+#book-list-title {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+#book-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#no-books-alert {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.btn-sm {
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: .2rem;
+}
+
+#book-list-container .btn-sm {
+  margin-right: 10px; 
+}
+
+#book-card .card-footer {
+  display: flex;
+  justify-content: space-between; 
+}
+
+#book-card .card-footer a:last-child {
+  margin-right: 0;
+}
+
