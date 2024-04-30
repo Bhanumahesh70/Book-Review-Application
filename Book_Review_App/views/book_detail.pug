@@ -21,11 +21,12 @@ block content
           form#review-form(action=`/books/${book._id}/review`, method="POST", novalidate)
             .form-group
               label(for='rating') Your Rating (1-5)
-              input.form-control#user-rating(type='number', name='rating', min='1', max='5', required=true, placeholder='Your rating (1-5)')
+              input.form-control#user-rating(type='number', name='rating', min='1', max='5', required=true, placeholder='Your rating (1-5)',value=review.rating)
               .invalid-feedback Rating must be between 1 and 5.
             .form-group
               label(for='text') Your Review
               textarea.form-control#user-review(name='text', required=true, rows='4', placeholder='Write your review here', minlength='10', maxlength='5000')
+                | #{review.text}
               .invalid-feedback Review must be between 10 and 5000 characters.
             button.btn.btn-primary#submit-review(type='submit') Submit Review
 
