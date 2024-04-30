@@ -155,3 +155,44 @@ footer p {
   display: block;
   color: #dc3545; /* Bootstrap's is-invalid text color */
 }
+
+#book-detail-page {
+  margin-top: 20px;
+}
+
+#reviews-header {
+  margin-top: 40px;
+}
+
+.review-card {
+  background-color: #f8f9fa; /* Light grey background for reviews */
+}
+
+.review-actions button {
+  margin-right: 5px;
+}
+
+#add-update-review-title {
+  margin-top: 30px;
+  text-align: center;
+}
+
+#update-review-container {
+  padding-top: 20px;
+}
+
+#update-review-title {
+  margin-bottom: 20px;
+}
+
+#rating-group, #text-group {
+  margin-bottom: 15px;
+}
+
+#review-buttons .btn {
+  margin-right: 10px; /* Ensures spacing between buttons */
+}
+
+.alert {
+  margin-top: 10px;
+}

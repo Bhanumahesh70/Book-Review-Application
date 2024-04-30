@@ -1,29 +1,28 @@
 extends layout
 
 block content
-  h1= title
-  h2 Editing Review for #{book.title}
+  .container#update-review-container
+    .row.justify-content-center
+      .col-md-8
+        h1#update-review-title.text-center Editing Review for #{book.title}
 
-  // Display any errors or messages
-  if locals.error
-    p.error= error
-  if locals.success
-    p.success= success
+        // Form for submitting review update
+        form#review-form(action=`/books/${book._id}/review/update`, method="POST")
+          .form-group#rating-group
+            label(for="rating") Rating (1-5):
+            input.form-control(type="number", id="rating", name="rating", required=true, min="1", max="5", value=review.rating)
+            if messages.ratingError
+              .invalid-feedback#rating-error(style="display:block;")
+                p= messages.ratingError
 
-  // Form for submitting review update
-  form(action=`/books/${book._id}/review/update`, method="POST")
-    // Rating input
-    div.form-group
-      label(for="rating") Rating (1-5):
-      input(type="number", id="rating", name="rating", required=true, min=1, max=5, value=review.rating)
+          .form-group#text-group
+            label(for="text") Review Text:
+            textarea.form-control(id="text", name="text", required=true, rows="5").form-control= review.text
+            if messages.textError
+              .invalid-feedback#text-error(style="display:block;")
+                p= messages.textError
 
-    // Textarea for review text
-    div.form-group
-      label(for="text") Review Text:
-      textarea(id="text", name="text", required=true, rows="5")= review.text
-
-    // Submit button
-    button(type="submit") Update Review
-
-    // A link back to the book detail page, in case the user decides not to edit the review
-    a(href=`/books/${book._id}`) Cancel
+          .btn-toolbar#review-buttons
+            button.btn.btn-primary(type="submit") Update Review
+            a.btn.btn-secondary.ml-2(href=`/books/${book._id}`) Cancel
+    script(src="/javascripts/reviewFormValidation.js")
