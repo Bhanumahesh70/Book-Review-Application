@@ -21,7 +21,7 @@ block content
           form#review-form(action=`/books/${book._id}/review`, method="POST", novalidate)
             .form-group
               label(for='rating') Your Rating (1-5)
-              input.form-control#user-rating(type='number', name='rating', min='1', max='5', required=true, placeholder='Your rating (1-5)',value=review.rating)
+              input.form-control#user-rating(type='number', name='rating', min='1', max='5', required=true, placeholder='Your rating (1-5)', value=(review ? review.rating : ''))
               .invalid-feedback Rating must be between 1 and 5.
             .form-group
               label(for='text') Your Review

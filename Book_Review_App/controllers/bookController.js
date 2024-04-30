@@ -24,14 +24,19 @@ exports.book_detail = async (req, res) => {
             console.log("No book found with that ID");
             res.status(404).send("No book found with that ID");
         } else {
+            // Find user's review if user exists
+            let userReview = null;
+            if (req.user) {
+                userReview = book.reviews.find(r => r.user._id.toString() === req.user._id.toString()) || { rating: '', text: '' };
+            }
             console.log("Displaying book details");
             res.render('book_detail', { 
                 title: 'Book Detail', 
                 book: book,
-            // Send computed average rating to the view
-            averageRating: book.reviews.length ? book.reviews.reduce((acc, curr) => acc + curr.rating, 0) / book.reviews.length : 'No ratings yet',
-            user: req.user,
-            user_id: req.user ? req.user._id.toString() : null
+                review: userReview,
+                averageRating: book.reviews.length ? book.reviews.reduce((acc, curr) => acc + curr.rating, 0) / book.reviews.length : 'No ratings yet',
+                user: req.user,
+                user_id: req.user ? req.user._id.toString() : null
             });
         }
     } catch (err) {
