@@ -1,5 +1,29 @@
 extends layout
 
 block content
-  h1 #{title}
-  p Contact us at example@email.com.
+  h1 Contact Us
+  p Have questions or feedback? We'd love to hear from you!
+  form(action='/send-message', method='POST')
+    .form-group
+      label(for='name') Name:
+      input#name(type='text', name='name', required=true, placeholder='Your Name')
+    .form-group
+      label(for='email') Email:
+      input#email(type='email', name='email', required=true, placeholder='Your Email Address')
+    .form-group
+      label(for='message') Message:
+      textarea#message(name='message', required=true, rows='5', placeholder='Your Message Here')
+    button(type='submit') Send Message
+
+  // Contact information can also be displayed
+  div.contact-info
+    p You can also reach us at:
+    p
+      strong Email:
+      |  @bookreviews.com
+    p
+      strong Phone:
+      |  +123 456 7890
+    p
+      strong Address:
+      | Book St., 

@@ -8,15 +8,18 @@ block content
     if user
       li Welcome #{user.username}
       li
-        a(href='/books/create') Add New Book
+        button(onclick="location.href='/books/create'" type="button" class="button-link") Add New Book
       li
-        a(href='/users/logout') Logout
+        button(onclick="location.href='/users/logout'" type="button" class="button-link") Logout
     else
       li
-        a(href='/users/login') Login
+        button(onclick="location.href='/users/login'" type="button" class="button-link") Login
       li
-        a(href='/users/register') Register
+        button(onclick="location.href='/users/register'" type="button" class="button-link") Register
 
   // Add book link (visible to logged-in users)
   if user
-    a(href='/books/') View Books
+    button(onclick="location.href='/books/'" type="button") View Books
+
+  button(onclick="location.href='/about'", type="button") About
+  button(onclick="location.href='/contact'", type="button") Contact

@@ -45,3 +45,6 @@ block content
                 textarea#reviewText(name='reviews[0][text]', required='true', rows='5')
 
         button(type='submit') #{book ? 'Update Book' : 'Create Book'}
+    button(onclick="location.href='/'" type="button" class="button-link") Home
+    button(onclick="location.href='/books/'" type="button") Back
+    script(src="/javascripts/bookFormValidation.js")

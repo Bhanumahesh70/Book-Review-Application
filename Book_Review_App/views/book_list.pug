@@ -2,7 +2,9 @@ extends layout
 
 block content
   h1 Book List
-
+  // Link to add a new book
+  a(href='/books/create').btn Add New Book
+  button(onclick="location.href='/'" type="button" class="button-link") Home
   if books.length == 0
     p No books available at the moment.
   else
@@ -13,10 +15,9 @@ block content
           p Author: #{book.author}
           p Genre: #{book.genre}
           p Rating: #{book.averageRating.toFixed(1)} / 5
-          a(href=`/books/${book._id}`) View Details
+          button.btn.btn-link(type='button', onclick=`location.href='/books/${book._id}'`) View Details
           if user && book.createdByUser.toString() === user._id.toString()
-            a(href=`/books/${book._id}/update`) Edit
-            a(href=`/books/${book._id}/delete`) Delete
+            button.btn.btn-link(type='button', onclick=`location.href='/books/${book._id}/update'`) Edit
+            button.btn.btn-link(type='button', onclick=`location.href='/books/${book._id}/delete'`) Delete
 
-  // Link to add a new book
-  a(href='/books/create').btn Add New Book
+  
