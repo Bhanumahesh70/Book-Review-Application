@@ -102,32 +102,19 @@ exports.book_create_post = async (req, res) => {
     */
 };
 
-// Display book delete form on GET
-exports.book_delete_get = async (req, res) => {
-    console.log("Inside bookController.book_delete_get");
-    try {
-        const book = await bookService.findBookById(req.params.id);
-        if (!book) {
-            console.log("book is not found to delete");
-            res.redirect('/books');
-        } else {
-            console.log("Book is deleted sucessfully");
-            res.render('book_delete', { title: 'Delete Book', book: book });
-        }
-    } catch (err) {
-        console.log("Error in deleting book");
-        res.status(500).send("Error finding book for deletion: " + err);
-    }
-};
-
 // Handle book delete on POST
 exports.book_delete_post = async (req, res) => {
-    console.log("Inside bookController.book_delete_post");
-    const book = await bookService.findBookById(req.params.id);
-    if (book.createdByUser.toString() !== req.user._id.toString()) {
-        return res.status(403).send("Unauthorized to delete this book");
-    }
     try {
+        console.log("Inside bookController.book_delete_post");
+        const book = await bookService.findBookById(req.params.id);
+        if (!book) {
+            res.status(404).send("Book not found");
+            return;
+        }
+        if (book.createdByUser.toString() !== req.user._id.toString()) {
+            return res.status(403).send("Unauthorized to delete this book");
+        }
+
         await bookService.deleteBook(req.params.id);
         console.log("Book deleted successfully");
         res.redirect('/books');
@@ -209,7 +196,7 @@ exports.add_or_update_review_post = async (req, res) => {
             rating: req.body.rating,
             text: req.body.text
         });
-        res.redirect(`/books/${req.params.id}`);
+        res.redirect(`/books/${req.params.id}/allreviews`);
     } catch (err) {
         res.status(500).send("Failed to add or update review: " + err);
     }

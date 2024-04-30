@@ -1,14 +1,31 @@
 extends layout
 
 block content
-  h1 About Us
-  p Welcome to our Book Review Application
+  .container#about-us-container
+    .row
+      .col-12
+        h1#about-us-title.text-center.mt-3 About Us
+        p#about-us-description Welcome to our Book Review Application. We are dedicated to providing readers like you with insightful and reliable book reviews.
 
-  // Additional paragraphs or sections can go here
-  section
-    h2 Our Team
-    p Meet the passionate individuals behind our platform:
-    ul.team
-      li
-        h3 Bhanu Mahesh
-        p Lead Developer
+    // Additional paragraphs or sections can go here
+    .row#team-section.mt-4
+      .col-12
+        h2#team-title Our Team
+        p Meet the passionate individuals behind our platform:
+        ul.list-unstyled#team-list
+          li#team-member
+            h3 Bhanu Mahesh
+            p Lead Developer - The driving force behind the application development.
+
+    // Additional information or sections can be added here
+    .row#additional-info.mt-4
+      .col-12
+        section#mission-statement
+          h2 Mission Statement
+          p We strive to enhance your reading experience by providing detailed reviews from various genres.
+
+    // Button or links section if needed
+    .row.justify-content-center.mt-5
+      .col-md-6.d-flex.justify-content-around
+        button.btn.btn-primary(onclick="location.href='/'", type="button") Home
+        button.btn.btn-info(onclick="location.href='/contact'", type="button") Contact Us

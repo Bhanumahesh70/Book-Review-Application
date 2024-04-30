@@ -9,10 +9,11 @@ block content
         p#book-genre Genre: #{book.genre}
         p#book-rating Average Rating: #{book.averageRating.toFixed(1)} / 5
 
-    .row.mt-3
-      .col-12.text-center
-        button.btn.btn-secondary.mr-2(onclick=`location.href='/books/${book._id}'`, type="button") Back
-        button.btn.btn-info(onclick="location.href='/'", type="button") Home
+    .row.mt-3#button-row
+        .col-12.d-flex.justify-content-center.align-items-center#button-container
+            button.btn.btn-secondary.mr-2.back-btn(onclick=`location.href='/books/${book._id}'`, type="button") Back
+            button.btn.btn-info.home-btn(onclick="location.href='/'", type="button") Home
+            button.btn.btn-primary.mb-2.view-books-btn(onclick="location.href='/books/'", type="button") View Books
 
     if book.reviews.length
       .row

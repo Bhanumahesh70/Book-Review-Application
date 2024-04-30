@@ -218,3 +218,108 @@ footer p {
   width: auto;
   padding: 0.375rem 0.75rem;
 }
+
+#about-us-container {
+  background-color: #f8f9fa; /* Light background for the container */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#about-us-title {
+  color: #343a40; /* Dark grey color */
+}
+
+#about-us-description {
+  font-size: 18px;
+  color: #6c757d; /* Muted text color */
+}
+
+#team-section {
+  background-color: #e9ecef; /* Slightly darker background for the team section */
+  padding: 15px;
+  border-radius: 5px;
+}
+
+#team-title {
+  color: #007bff; /* Bootstrap primary blue */
+}
+
+#team-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #dee2e6; /* Light grey border for separating team members */
+}
+
+#team-member h3 {
+  font-weight: bold;
+}
+
+#team-member p {
+  font-size: 16px;
+}
+
+#mission-statement h2 {
+  color: #28a745; /* Bootstrap success green */
+}
+
+#mission-statement p {
+  font-size: 16px;
+  color: #343a40; /* Dark text for visibility */
+}
+
+.btn-primary, .btn-info {
+  width: 150px; /* Fixed width for buttons */
+}
+
+#contact-us-container {
+  background-color: #fff; /* White background for readability */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+#contact-us-title {
+  color: #007bff; /* Bootstrap primary color */
+}
+
+#contact-info-card {
+  background-color: #f8f9fa; /* Light grey background */
+  border: none; /* No border for a cleaner look */
+}
+
+#info-title {
+  color: #28a745; /* Bootstrap success color */
+  text-align: center;
+}
+
+#email-info, #phone-info, #address-info {
+  font-size: 16px; /* Slightly larger text for easy reading */
+  color: #6c757d; /* Bootstrap secondary text color */
+}
+
+#back-home-button-row, #view-books-button-row {
+  margin-top: 10px; /* Space above each row */
+}
+
+#back-home-button-row .btn, #view-books-button-row .btn {
+  font-weight: bold; /* Makes the button text bolder */
+  letter-spacing: 0.5px; /* Increases spacing between letters for better readability */
+  padding: 8px 20px; /* Adjusts padding for better button size */
+}
+
+.back-btn, .home-btn {
+  margin-right: 10px; /* Ensures spacing between the Back and Home buttons */
+  color: white; /* Ensures text color is white for better visibility */
+}
+
+.back-btn {
+  background-color: #6c757d; /* Bootstrap secondary gray for less emphasis */
+}
+
+.home-btn {
+  background-color: #17a2b8; /* Bootstrap info blue for consistency */
+}
+
+.view-books-btn {
+  background-color: #007bff; /* Bootstrap primary blue for visual importance */
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Subtle shadow for aesthetic enhancement */
+}

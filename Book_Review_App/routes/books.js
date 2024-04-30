@@ -23,9 +23,6 @@ router.get('/:id/update', isAuthenticated, bookController.book_update_get);
 // POST request to update Book
 router.post('/:id/update', isAuthenticated, bookController.book_update_post);
 
-// GET request to delete Book
-router.get('/:id/delete', isAuthenticated, bookController.book_delete_get);
-
 // POST request to delete Book
 router.post('/:id/delete', isAuthenticated, bookController.book_delete_post);
 
