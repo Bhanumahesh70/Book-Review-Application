@@ -16,32 +16,32 @@ block content
             label(for='genre') Genre:
             input#genre(type='text', name='genre', required='true', value=book ? book.genre : '')
 
-        // Handling a single review instance by the current user
-        if book && book.reviews
+        // Handling a single review instance by the current user, ensuring currentUser is defined
+        if book && book.reviews && currentUser && currentUser._id
             - var userReview = book.reviews.find(r => r.user.toString() === currentUser._id.toString())
             if userReview
                 .form-group
-                    label(for='rating-' + userReview._id) Ratings1 (1-5):
+                    label(for='rating-' + userReview._id) Ratings (1-5):
                     input(type='number', id='rating-' + userReview._id, name='reviews[' + userReview._id + '][rating]', min='1', max='5', required='true', value=userReview.rating)
 
                 .form-group
-                    label(for='reviewText-' + userReview._id) Reviews1 Text:
+                    label(for='reviewText-' + userReview._id) Review Text:
                     textarea(id='reviewText-' + userReview._id, name='reviews[' + userReview._id + '][text]', required='true', rows='5')= userReview.text
             else
                 .form-group
-                    label(for='rating') Rating2 (1-5):
+                    label(for='rating') Rating (1-5):
                     input#rating(type='number', name='reviews[0][rating]', min='1', max='5', required='true', value=1)
 
                 .form-group
-                    label(for='reviewText') Review2 Text:
+                    label(for='reviewText') Review Text:
                     textarea#reviewText(name='reviews[0][text]', required='true', rows='5')
         else
             .form-group
-                label(for='rating') Rating3 (1-5):
+                label(for='rating') Rating (1-5):
                 input#rating(type='number', name='reviews[0][rating]', min='1', max='5', required='true', value=1)
 
             .form-group
-                label(for='reviewText') Review3 Text:
+                label(for='reviewText') Review Text:
                 textarea#reviewText(name='reviews[0][text]', required='true', rows='5')
 
         button(type='submit') #{book ? 'Update Book' : 'Create Book'}
