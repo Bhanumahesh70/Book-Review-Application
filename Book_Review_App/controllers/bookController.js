@@ -216,7 +216,7 @@ exports.update_review_post = async (req, res) => {
             rating: req.body.rating,
             text: req.body.text
         });
-        res.redirect(`/books/${req.params.id}`);
+        res.redirect(`/books/${req.params.id}/allreviews`);
     } catch (err) {
         res.status(500).send("Failed to update review: " + err);
     }
